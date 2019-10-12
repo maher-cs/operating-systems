@@ -1,0 +1,8 @@
+# public rules
+*/*.class
+*/*/*.class
+*/*/*/*.class
+
+*/*.pdf
+*/*/*.pdf
+*/*/*/*.pdf
