@@ -5,9 +5,11 @@
  * authors:
  * - MHD Maher Azkoul
  *   438017578
+ *   s438017578@st.uqu.edu.sa
  *   group: 3 - no.: 27
  * - Anas Mohammad Hashem Nowawi
  *   438008655
+ *   s438008655@st.uqu.edu.sa
  *   group: 3 - no.: 25
  * 
  * Date: 17-10-2019
