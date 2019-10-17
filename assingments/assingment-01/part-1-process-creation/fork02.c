@@ -33,6 +33,12 @@ int main(int argc, char** argv) {
 
    // create first child
    pid1 = fork();
+
+   // if error occur in creating first child
+   if(pid1 < 0) {
+      fprintf(stderr, "Fork Failed");
+      return 1;
+   }
    
    // first child
    if(pid1 == 0) {
@@ -57,6 +63,12 @@ int main(int argc, char** argv) {
 
       // create second child
       pid2 = fork();
+
+      // if error occur in creating second child
+      if(pid2 < 0) {
+         fprintf(stderr, "Fork Failed");
+         return 1;
+      }
 
       // second child
       if(pid2 == 0) {
