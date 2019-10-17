@@ -10,6 +10,7 @@
  *   438008655
  *   group: 3 - no.: 25
  * 
+ * Date: 17-10-2019
  * program description:
  *    This program is one of 2 parts of the whole program
  * the goal of the program is to have a value

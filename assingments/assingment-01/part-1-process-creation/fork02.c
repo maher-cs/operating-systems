@@ -10,6 +10,7 @@
  *   438008655
  *   group: 3 - no.: 25
  * 
+ * Date: 17-10-2019
  * program description:
  *    The goal of this pogram is to create two children processes
  * each child will iterate and print a text on the screen
