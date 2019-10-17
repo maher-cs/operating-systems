@@ -24,6 +24,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class Consumer extends Thread {
 
+    // queue that is filled by the producer
     private final LinkedBlockingQueue<Integer> queue;
 
     public Consumer(LinkedBlockingQueue<Integer> queue) {
@@ -34,18 +35,23 @@ public class Consumer extends Thread {
     public void run() {
 
         try {
+            // consumes the data in the queue
             while (true) {
                 Integer next_consumed = queue.take();
+
+                // end loop if "poison bill" occur
                 if(next_consumed == -1) {
                     break;
                 }
+
+                // display data
                 if (next_consumed != null) {
                     System.out.println("next consumed = " + next_consumed);
                 }
             }
             System.out.println("Consumer died quietly");
         } catch (InterruptedException D) {
-            System.out.println("Consumer interrupted");
+            System.err.println("Consumer interrupted");
         }
 
     }

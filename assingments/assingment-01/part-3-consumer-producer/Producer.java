@@ -23,9 +23,13 @@
 import java.util.concurrent.LinkedBlockingQueue;;
 public class Producer extends Thread {
 
+    // the queue that is consumed by the consumer
     private final LinkedBlockingQueue<Integer> queue;
-    private final int SIZE = 50;
 
+    // the size of the queue
+    private final int SIZE = 20;
+
+    // producer constructor
     public Producer(LinkedBlockingQueue<Integer> queue) {
         this.queue = queue;
     }
@@ -33,13 +37,19 @@ public class Producer extends Thread {
     @Override
     public void run() {
         try {
+            // fill queue with random number in range 1 to 200
             for(int i = 0; i < SIZE; i++) {
                 Integer next_produced = (int)(Math.random() * 200) + 1;
                 queue.put(next_produced);
                 System.out.println("next produced = " + next_produced);
             }
+            
+            // send a signal "poison bill" to terminate the consumer
             queue.put(-1);
+
             System.out.println("Producer died quietly");
-        } catch (InterruptedException D) {   }
+        } catch (InterruptedException D) {
+            System.err.println("Producer interrupted");
+        }
     }
 }
