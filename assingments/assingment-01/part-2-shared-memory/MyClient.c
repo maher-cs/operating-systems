@@ -39,6 +39,12 @@
 #define SERVER_KEY 's'
 #define CLIENT_KEY 'c'
 
+// signal register index in the sh-mem array
+#define SIGNAL_INDEX SH_SIZE
+
+// default value replaced with non-lucky number
+#define NOT_LUCKY -1
+
 // range of random number of guess
 #define RANDOM_NUMBER_RANGE 20
 
@@ -46,11 +52,10 @@ int main(int argc, char** argv) {
 
     // specify keys
     key_t key = 's' * 'h';
-    key_t signal = 's';
 
     // build shared memory
     // add 1 for signal register
-    int shmid = shmget(key, (SH_SIZE + 1) * sizeof(int), IPC_CREAT | 0666);
+    int shmid = shmget(key, (SH_SIZE + 1) * sizeof(int), 0666);
     if (shmid < 0) {
         perror("shmget error - client");
         exit(1);
@@ -69,11 +74,11 @@ int main(int argc, char** argv) {
 
     while(1) {
         // check signal register, if control with client
-        if(mem[SH_SIZE] == CLIENT_KEY) {
+        if(mem[SIGNAL_INDEX] == CLIENT_KEY) {
 
             // check lucky number and replacing with random numbers
             for(int i = 0; i < SH_SIZE; i++) {
-                if(mem[i] != -1) {
+                if(mem[i] != NOT_LUCKY) {
                     luckyNumber = mem[i];
                     isFounded = 1;
                 } else {
@@ -82,24 +87,24 @@ int main(int argc, char** argv) {
             }
 
             // print values after replacing
-            printf("after replacing values of -1 to new random numbers.\n");
+            printf("after replacing values of %d to new random numbers.\n", NOT_LUCKY);
             for(int i = 0; i < SH_SIZE; i++) {
                 printf("%d, ", mem[i]);
             }
             printf("\n\n");
 
             // give control to the server
-            mem[SH_SIZE] = SERVER_KEY;
+            mem[SIGNAL_INDEX] = SERVER_KEY;
 
         // if control with server
-        } else if(mem[SH_SIZE] == SERVER_KEY) {
+        } else if(mem[SIGNAL_INDEX] == SERVER_KEY) {
             sleep(1);
         }
         
         // if lucky number is founded
         if(isFounded) {
             printf("The lucky number [%d] is found –the cleint will be terminated.\n\n", luckyNumber);
-            mem[SH_SIZE] = IS_FOUNDED_KEY;
+            mem[SIGNAL_INDEX] = IS_FOUNDED_KEY;
             break;
         }
     }
