@@ -101,7 +101,7 @@ int main(int argc, char** argv) {
             }
 
             // print values after replacing
-            printf("after replacing values other then lucky number to %d.\n", NOT_LUCKY);
+            printf("after replacing values other than lucky number to %d.\n", NOT_LUCKY);
             for(int i = 0; i < SH_SIZE; i++) {
                 printf("%d, ", mem[i]);
             }
