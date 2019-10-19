@@ -27,6 +27,9 @@ public class Consumer extends Thread {
     // queue that is filled by the producer
     private final LinkedBlockingQueue<Integer> queue;
 
+    // poisin bill signal to terminate consumer
+    private final int POISIN_BILL = -1;
+
     public Consumer(LinkedBlockingQueue<Integer> queue) {
         this.queue = queue;
     }
@@ -40,7 +43,7 @@ public class Consumer extends Thread {
                 Integer next_consumed = queue.take();
 
                 // end loop if "poison bill" occur
-                if(next_consumed == -1) {
+                if(next_consumed == POISIN_BILL) {
                     break;
                 }
 

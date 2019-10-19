@@ -25,8 +25,11 @@ public class BoundedQueue {
 
     public static void main(String[] args) throws InterruptedException {
 
+        // the size of the bounded queue
+        final int SIZE = 20;
+
         // queue - the shared memory
-        LinkedBlockingQueue<Integer> shm = new LinkedBlockingQueue<Integer>();
+        LinkedBlockingQueue<Integer> shm = new LinkedBlockingQueue<Integer>(SIZE);
 
         // create producer
         Producer prod = new Producer(shm);

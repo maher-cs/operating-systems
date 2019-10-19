@@ -27,7 +27,14 @@ public class Producer extends Thread {
     private final LinkedBlockingQueue<Integer> queue;
 
     // the size of the queue
-    private final int SIZE = 20;
+    private final int ITERATION_NO = 50;
+
+    // poisin bill signal to terminate consumer
+    private final int POISIN_BILL = -1;
+
+    // random numbers range
+    private final int RANDOM_START = 1;
+    private final int RANDOM_END = 200;
 
     // producer constructor
     public Producer(LinkedBlockingQueue<Integer> queue) {
@@ -38,14 +45,14 @@ public class Producer extends Thread {
     public void run() {
         try {
             // fill queue with random number in range 1 to 200
-            for(int i = 0; i < SIZE; i++) {
-                Integer next_produced = (int)(Math.random() * 200) + 1;
+            for(int i = 0; i < ITERATION_NO; i++) {
+                Integer next_produced = (int)(Math.random() * RANDOM_END) + RANDOM_START;
                 queue.put(next_produced);
                 System.out.println("next produced = " + next_produced);
             }
             
             // send a signal "poison bill" to terminate the consumer
-            queue.put(-1);
+            queue.put(POISIN_BILL);
 
             System.out.println("Producer died quietly");
         } catch (InterruptedException D) {
