@@ -68,13 +68,19 @@ int main(int argc, char** argv) {
         exit(1);
     }
 
-    int luckyNumber, isFounded = 0;
+    // address of signal register
+    int *signal = &mem[SIGNAL_INDEX];
+
+    int luckyNumber;
+
+    // "lucky number is founded" flag
+    int isFounded = 0;
 
     printf("initial start of the client - no search for the lucky number\n\n");
 
     while(1) {
         // check signal register, if control with client
-        if(mem[SIGNAL_INDEX] == CLIENT_KEY) {
+        if(*signal == CLIENT_KEY) {
 
             // check lucky number and replacing with random numbers
             for(int i = 0; i < SH_SIZE; i++) {
@@ -94,17 +100,17 @@ int main(int argc, char** argv) {
             printf("\n\n");
 
             // give control to the server
-            mem[SIGNAL_INDEX] = SERVER_KEY;
+            *signal = SERVER_KEY;
 
         // if control with server
-        } else if(mem[SIGNAL_INDEX] == SERVER_KEY) {
+        } else if(*signal == SERVER_KEY) {
             sleep(1);
         }
         
         // if lucky number is founded
         if(isFounded) {
             printf("The lucky number [%d] is found –the cleint will be terminated.\n\n", luckyNumber);
-            mem[SIGNAL_INDEX] = IS_FOUNDED_KEY;
+            *signal = IS_FOUNDED_KEY;
             break;
         }
     }
