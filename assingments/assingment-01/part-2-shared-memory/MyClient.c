@@ -53,7 +53,7 @@ int main(int argc, char** argv) {
     // specify keys
     key_t key = 's' * 'h';
 
-    // build shared memory
+    // get id of shared memory
     // add 1 for signal register
     int shmid = shmget(key, (SH_SIZE + 1) * sizeof(int), 0666);
     if (shmid < 0) {
