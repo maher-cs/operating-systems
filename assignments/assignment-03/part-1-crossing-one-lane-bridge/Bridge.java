@@ -24,6 +24,13 @@ import java.util.concurrent.Semaphore;
 
 public class Bridge {
 
+    // console colors
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_YELLOW = "\u001B[33m";
+    private static final String ANSI_BLUE = "\u001B[34m";
+    private static final String ANSI_RESET = "\u001B[0m";
+
     // semaphore
     private Semaphore semMutex;
 
@@ -40,8 +47,14 @@ public class Bridge {
     // crossing bridge by vehicle simulation method
     public void cross(Vehicle vehicle) {
         try {
+            String colorDir = "";
+            if(vehicle.getDirection().equals("Eastbound")) {
+                colorDir = ANSI_GREEN + vehicle.getDirection() + ANSI_RESET;
+            } else if(vehicle.getDirection().equals("Westbound")) {
+                colorDir = ANSI_RED + vehicle.getDirection() + ANSI_RESET;
+            }
             // string variable that holds the direction and id of the vehicle
-            String identity = vehicle.getDirection() + " vehicle: " + vehicle.getVehicleId() + " ";
+            String identity = colorDir + " vehicle: " + vehicle.getVehicleId() + " ";
 
             // message that tell the user that there is a vehicle
             // waiting for its turn to cross the bridge
@@ -54,9 +67,9 @@ public class Bridge {
             // start critical section
 
             // start crossing the bridge
-            System.out.println(identity + "is CROSSING the bridge now.");
+            System.out.println(identity + "is " + ANSI_YELLOW + "CROSSING" + ANSI_RESET + " the bridge now.");
             vehicle.crossBridge();
-            System.out.println(identity + "has COMPLETED crossing the bridge.");
+            System.out.println(identity + "has " + ANSI_BLUE + "COMPLETED" + ANSI_RESET + " crossing the bridge.");
 
             // count the car that crossed the bridge
             // the reporter will use counters in the report
