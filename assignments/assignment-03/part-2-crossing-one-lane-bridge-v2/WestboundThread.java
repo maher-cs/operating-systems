@@ -5,7 +5,8 @@
  * authors:
  * - MHD Maher Azkoul
  *   438017578
- *   group: 3 - no.: 24
+ * - Anas Nawawi
+ *   438008655
  * 
  * program description:
  *    This program simulates a traffic senario where 
